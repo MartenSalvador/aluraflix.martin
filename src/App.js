@@ -16,7 +16,7 @@ function App() {
     // Cambiar URL a la de MockAPI
     axios.get("https://677517f192222241481a9ff4.mockapi.io/movies")
       .then((response) => setMovies(response.data)) // Usar la data obtenida de MockAPI
-      console.log(response.data);
+    
       .catch((error) => console.error("Error al obtener las películas:", error));
   }, []);
 
