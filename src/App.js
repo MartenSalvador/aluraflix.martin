@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import Header from "./componentes/Header/Header";
 import MovieForm from "./componentes/MovieForm/MovieForm";
 import MovieList from "./componentes/MovieList/MovieList";
@@ -12,51 +13,42 @@ function App() {
   const [editingMovie, setEditingMovie] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/movies")
-      .then((response) => response.json())
-      .then((data) => setMovies(data)); 
+    // Cambiar URL a la de MockAPI
+    axios.get("https://627421de788f5f7e2b995920.mockapi.io/movies")
+      .then((response) => setMovies(response.data)) // Usar la data obtenida de MockAPI
+      .catch((error) => console.error("Error al obtener las películas:", error));
   }, []);
 
   const addMovie = (newMovie) => {
-    fetch("http://localhost:5000/movies", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newMovie),
-    })
-      .then((response) => response.json())
-      .then((savedMovie) => setMovies([...movies, savedMovie]))
+    axios.post("https://627421de788f5f7e2b995920.mockapi.io/movies", newMovie)
+      .then((response) => setMovies([...movies, response.data])) // Agregar la nueva película
       .catch((error) => console.error("Error al guardar la película:", error));
   };
 
   const deleteMovie = (id) => {
-    fetch(`http://localhost:5000/movies/${id}`, { method: "DELETE" })
-      .then(() => setMovies(movies.filter((movie) => movie.id !== id)))
+    axios.delete(`https://627421de788f5f7e2b995920.mockapi.io/movies/${id}`)
+      .then(() => setMovies(movies.filter((movie) => movie.id !== id))) // Eliminar la película
       .catch((error) => console.error("Error al eliminar la película:", error));
   };
 
-  // Actualizar una película existente
-const updateMovie = (updatedMovie) => {
-  fetch(`http://localhost:5000/movies/${updatedMovie.id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(updatedMovie),
-  })
-    .then(() => {
-      setMovies(
-        movies.map((movie) =>
-          movie.id === updatedMovie.id ? updatedMovie : movie
-        )
-      );
-      setEditingMovie(null); // Cerrar el formulario de edición
-    })
-    .catch((error) => console.error("Error al actualizar la película:", error));
-};
-
+  const updateMovie = (updatedMovie) => {
+    axios.put(`https://627421de788f5f7e2b995920.mockapi.io/movies/${updatedMovie.id}`, updatedMovie)
+      .then(() => {
+        setMovies(
+          movies.map((movie) =>
+            movie.id === updatedMovie.id ? updatedMovie : movie
+          )
+        );
+        setEditingMovie(null); // Cerrar el formulario de edición
+      })
+      .catch((error) => console.error("Error al actualizar la película:", error));
+  };
 
   const handleEdit = (movie) => {
     setEditingMovie(movie); // Activar modo edición
     setShowForm(false); // Cerrar el formulario de creación si está abierto
   };
+
 
   return (
     <div>
