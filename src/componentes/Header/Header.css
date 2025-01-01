@@ -1,0 +1,36 @@
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    width: auto;
+    height: 40px; /* Ajusta el tamaño del logo */
+    object-fit: contain; 
+  }
+
+header div {
+    margin-top: 10px;
+}
+
+header button {
+    background-color: #333;
+    color: #2271D1;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: solid 2px;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    font-weight: 600;
+}
+.btn_nuevo_video{
+    color: #FFF
+}
+header button:hover {
+    background-color: #555;
+}
