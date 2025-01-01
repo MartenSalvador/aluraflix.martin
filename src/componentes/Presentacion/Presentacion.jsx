@@ -12,7 +12,8 @@ function Presentacion(){
     useEffect(()=>{
         const fetchMovies = async ()=>{
             try{
-                const response = await fetch ("http://localhost:5000/movies")
+              const response = await fetch("https://677517f192222241481a9ff4.mockapi.io/movies");
+
                 const data = await response.json();
                 setMovies(data);
             }catch(error){
