@@ -14,25 +14,26 @@ function App() {
 
   useEffect(() => {
     // Cambiar URL a la de MockAPI
-    axios.get("https://627421de788f5f7e2b995920.mockapi.io/movies")
+    axios.get("https://677517f192222241481a9ff4.mockapi.io/movies")
       .then((response) => setMovies(response.data)) // Usar la data obtenida de MockAPI
+      console.log(response.data);
       .catch((error) => console.error("Error al obtener las películas:", error));
   }, []);
 
   const addMovie = (newMovie) => {
-    axios.post("https://627421de788f5f7e2b995920.mockapi.io/movies", newMovie)
+    axios.post("https://677517f192222241481a9ff4.mockapi.io/movies", newMovie)
       .then((response) => setMovies([...movies, response.data])) // Agregar la nueva película
       .catch((error) => console.error("Error al guardar la película:", error));
   };
 
   const deleteMovie = (id) => {
-    axios.delete(`https://627421de788f5f7e2b995920.mockapi.io/movies/${id}`)
+    axios.delete(`https://677517f192222241481a9ff4.mockapi.io/movies/${id}`)
       .then(() => setMovies(movies.filter((movie) => movie.id !== id))) // Eliminar la película
       .catch((error) => console.error("Error al eliminar la película:", error));
   };
 
   const updateMovie = (updatedMovie) => {
-    axios.put(`https://627421de788f5f7e2b995920.mockapi.io/movies/${updatedMovie.id}`, updatedMovie)
+    axios.put(`https://677517f192222241481a9ff4.mockapi.io/movies/${updatedMovie.id}`, updatedMovie)
       .then(() => {
         setMovies(
           movies.map((movie) =>
